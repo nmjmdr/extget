@@ -19,11 +19,11 @@ namespace Extget.Workbench {
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
             
-            if(Directory.Exists(PluginsPath)) {
-                yield return new ValidationResult("Plugins-path is invalid, should point to a valid directory");
+            if(!Directory.Exists(PluginsPath)) {                
+                yield return new ValidationResult(string.Format("Plugins-dir  {0} is invalid, should point to a valid directory",PluginsPath));
             }
 
-            if (Directory.Exists(OutputPath)) {
+            if (!Directory.Exists(OutputPath)) {
                 yield return new ValidationResult("output-path is invalid, should point to a valid directory");
             }
 

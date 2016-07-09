@@ -21,6 +21,7 @@ namespace Extget.Workbench
         private CancellationTokenSource cancelTokenSource;               
         public event OnDownloadEvent evt;
         private string outputDir;
+       
 
         public Scheduler(int degreeOfConcurrency,OnDownloadEvent eventHandler,string outputDir) {
             cancelTokenSource = new CancellationTokenSource();
@@ -28,43 +29,48 @@ namespace Extget.Workbench
             this.degreeOfConcurrency = degreeOfConcurrency;
             semaphore = new SemaphoreSlim(this.degreeOfConcurrency);
             this.outputDir = outputDir;
-
-          
+                   
             evt += eventHandler;
+        }
+
+        public void EndOfEnqueing() {
+            blockingQueue.CompleteAdding();
         }
 
         public void Enqueue(Request request) {
             blockingQueue.Add(request);
         }
 
+     
+
         public void Start() {
 
-            Task.Run(() => {                
+            Task.Run(() => {
                 foreach (Request request in blockingQueue.GetConsumingEnumerable(cancelTokenSource.Token)) {
 
                     semaphore.Wait(cancelTokenSource.Token);
                     // raise started event
-                    evt?.Invoke(new SchedulerEvent { Type = EventType.Started });
+                    evt?.Invoke(new SchedulerEvent { Uri = request.Uri, Type = EventType.Started });
 
                     IHandler handler = HandlerRepository.Instance.Get(request.Uri.Scheme);
-                    if(handler == null) {
+                    if (handler == null) {
                         Result r = Result.Failure(request.Uri.AbsoluteUri, ErrorCode.HandlerNotFound, string.Format("Could not find handler for scheme {0} in plugins", request.Uri.Scheme));
-                        evt?.Invoke(new SchedulerEvent { Result = r, Type = EventType.Failed });
+                        evt?.Invoke(new SchedulerEvent { Uri = request.Uri, Result = r, Type = EventType.Failed });
                         return;
                     }
 
                     FileGetter fileGetter = new FileGetter(handler, this.outputDir);
 
-                    fileGetter.GetAsync(request).ContinueWith((t) => {                        
+                    fileGetter.GetAsync(request).ContinueWith((t) => {
                         semaphore.Release();
-                        if(t.Result.IsSuccess) {
-                            evt?.Invoke(new SchedulerEvent { Result = t.Result, Type = EventType.Completed });
+                        if (t.Result.IsSuccess) {
+                            evt?.Invoke(new SchedulerEvent { Uri = request.Uri, Result = t.Result, Type = EventType.Completed });
                         } else {
-                            evt?.Invoke(new SchedulerEvent { Result = t.Result, Type = EventType.Failed });
+                            evt?.Invoke(new SchedulerEvent { Uri = request.Uri, Result = t.Result, Type = EventType.Failed });
                         }
                     });
                 }
-            });            
+            });
         }
 
         public void Stop() {

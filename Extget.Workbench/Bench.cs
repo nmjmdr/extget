@@ -22,17 +22,22 @@ namespace Extget.Workbench {
             }
             this.p = p;           
         }
-        
+
         public void Run() {
             setupProtocolHandlers(p.PluginsPath);
-            scheduler = new Scheduler(this.p.DegreeOfConcurrency, this.p.EvtHandler,this.p.OutputPath);
+            scheduler = new Scheduler(this.p.DegreeOfConcurrency, this.p.EvtHandler, this.p.OutputPath);
             scheduler.Start();
         }
 
-        public void Enqueue(Request request) {
-            scheduler.Enqueue(request);
+        public void Enqueue(List<Request> requests) {
+            foreach (Request r in requests) {
+                scheduler.Enqueue(r);
+            }
+            scheduler.EndOfEnqueing();
         }
 
+        
+        
         public void Stop() {
             scheduler.Stop();
         }

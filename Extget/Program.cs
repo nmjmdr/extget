@@ -60,8 +60,10 @@ namespace Extget {
             try {
                 Bench bench = new Bench(p);
                 bench.Run();
-
                 EnqueueRequests(uris, bench);
+
+                Console.ReadLine();
+                
             } catch (ValidationsException exp) {
                 printValidationErrors(exp.ValidationResults);
             } catch (Exception exp) {
@@ -95,9 +97,12 @@ namespace Extget {
         }
 
         private static void EnqueueRequests(List<Uri> uris, Bench bench) {
+            List<Request> requests = new List<Request>();
+
             foreach(Uri uri in uris) {
-                bench.Enqueue(new Request(uri));
+                requests.Add(new Request(uri));
             }
+            bench.Enqueue(requests);
         }
 
         private static List<Uri> parseInputFile(Option inputFileOption, out string error) {
@@ -135,7 +140,7 @@ namespace Extget {
         }
 
         private static bool checkConfiguration() {
-            string pluginsFolder = ConfigurationManager.AppSettings[PluginsDirConfigKey];
+            string pluginsFolder = ConfigurationManager.AppSettings[PluginsDirConfigKey];           
             if(string.IsNullOrWhiteSpace(pluginsFolder) || !Directory.Exists(pluginsFolder)) {
                 return false;
             }
@@ -179,15 +184,15 @@ namespace Extget {
         }
 
         private static void displayStarted(SchedulerEvent evt) {
-            Console.WriteLine("Downloading - {0}", evt.Result.Uri);
+            Console.WriteLine("Downloading - {0}", evt.Uri.AbsoluteUri);
         }
 
         private static void displayCompleted(SchedulerEvent evt) {
-            Console.WriteLine("Downloaded - {0}", evt.Result.Uri);
+            Console.WriteLine("Downloaded - {0}", evt.Uri.AbsoluteUri);
         }
 
         private static void displayFailure(SchedulerEvent evt) {           
-            Console.WriteLine("Failed to download - {0}", evt.Result.Uri);
+            Console.WriteLine("Failed to download - {0}", evt.Uri.AbsoluteUri);
             Console.WriteLine("Error: {0}", evt.Result.Message);           
         }
 
