@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Extget.Workbench {
@@ -14,6 +15,7 @@ namespace Extget.Workbench {
 
         private Scheduler scheduler;
         private StartupParams p;
+        private CountdownEvent countdown;
        
         public Bench(StartupParams p) {
             var errors = p.Validate(new ValidationContext(p));
@@ -25,18 +27,28 @@ namespace Extget.Workbench {
 
         public void Run() {
             setupProtocolHandlers(p.PluginsPath);
-            scheduler = new Scheduler(this.p.DegreeOfConcurrency, this.p.EvtHandler, this.p.OutputPath);
+            scheduler = new Scheduler(this.p.DegreeOfConcurrency, interceptor, this.p.OutputPath);
             scheduler.Start();
         }
 
-        public void Enqueue(List<Request> requests) {
+        public void interceptor(SchedulerEvent evt) {
+            if(evt.Type == EventType.Completed || evt.Type == EventType.Failed) {
+                countdown.Signal();
+            }
+            this.p.EvtHandler(evt);
+        }
+
+        public void Enqueue(List<Request> requests) {           
             foreach (Request r in requests) {
                 scheduler.Enqueue(r);
             }
+            countdown = new CountdownEvent(requests.Count);
             scheduler.EndOfEnqueing();
         }
 
-        
+        public void WaitUntilAllDone() {
+            countdown.Wait();
+        }
         
         public void Stop() {
             scheduler.Stop();

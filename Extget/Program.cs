@@ -62,7 +62,7 @@ namespace Extget {
                 bench.Run();
                 EnqueueRequests(uris, bench);
 
-                Console.ReadLine();
+                bench.WaitUntilAllDone();
                 
             } catch (ValidationsException exp) {
                 printValidationErrors(exp.ValidationResults);
