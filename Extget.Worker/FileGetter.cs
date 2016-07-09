@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extget.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,21 +15,31 @@ namespace Extget.Worker {
             this.handler = handler;
         }
 
-        public async Task<Result> GetAsync(Uri uri) {
+        public async Task<Result> GetAsync(Request request) {
 
             // Need a way to cancel the download!!!!
-            Response response =  await handler.GetAsync(uri);
+            FileStream fs = null;
+            string filename = request.Uri.DeriveFileName();
+            try {
+                Response response = await handler.GetAsync(request);
 
-            if(!response.Result.Success) {
-                return response.Result;
-            }
+                if (!response.Result.Success) {
+                    return response.Result;
+                }
+                fs = File.Open(filename, FileMode.Create);
+                await response.OutStream.CopyToAsync(fs);
+                await fs.FlushAsync();
+                fs.Close();
 
-            string filename = uri.DeriveFileName();
-
-            FileStream fs = File.Open(filename, FileMode.Create);           
-            await response.OutStream.CopyToAsync(fs);
-
-            return Result.Ok();
+            } catch(Exception exp) {
+                if(fs != null) {
+                    // delete the file
+                    fs.Close();
+                    File.Delete(filename);
+                }
+                return Result.Failure(request.Uri.AbsoluteUri,ErrorCode.FailedToGet,string.Format("An exception occured during the download: {0}",exp.Message));
+            } 
+            return Result.Ok(request.Uri.AbsoluteUri);
         }
     }
 }

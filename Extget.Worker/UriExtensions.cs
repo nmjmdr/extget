@@ -9,6 +9,7 @@ namespace Extget.Worker {
     public static class UriExtensions {
 
         public static string DeriveFileName(this Uri uri) {
+            /*
             StringBuilder filepath = new StringBuilder();
 
             filepath.AppendFormat("{0}_", uri.Scheme);
@@ -21,6 +22,8 @@ namespace Extget.Worker {
                 filepath.Append("_");
             }
             return filepath.ToString();
+            */
+            return Path.GetTempFileName();
         }
 
         private static string getSafeSegment(string segment) {

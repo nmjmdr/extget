@@ -4,24 +4,25 @@ using Extget.Worker;
 using System.Net.Http;
 using System.Net;
 using System.IO;
+using Extget.Common;
 
 namespace TestBed {
     public class HttpHandler : IHandler {
-        public async Task<Response> GetAsync(Uri uri) {
+        public async Task<Response> GetAsync(Request request) {
 
             HttpClient client = new HttpClient();
 
-            HttpResponseMessage httpResponse = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+            HttpResponseMessage httpResponse = await client.GetAsync(request.Uri, HttpCompletionOption.ResponseHeadersRead);
 
             if(!httpResponse.IsSuccessStatusCode) {
-                Response response = buildErrorResponse(httpResponse.StatusCode, httpResponse.ReasonPhrase);
+                Response response = buildErrorResponse(request.Uri,httpResponse.StatusCode, httpResponse.ReasonPhrase);
             }
 
             Stream stream = await httpResponse.Content.ReadAsStreamAsync();
-            return Response.Ok(stream);
+            return Response.Ok(request.Uri.AbsoluteUri,stream);
         }
 
-        private Response buildErrorResponse(HttpStatusCode statusCode, string reasonPhrase) {
+        private Response buildErrorResponse(Uri uri,HttpStatusCode statusCode, string reasonPhrase) {
             ErrorCode code = ErrorCode.FailedToGet;
             switch (statusCode) {
                 case HttpStatusCode.NotFound:
@@ -29,7 +30,7 @@ namespace TestBed {
                     break;                
             }
 
-            return Response.Failure(code, reasonPhrase);
+            return Response.Failure(uri.AbsoluteUri,code, reasonPhrase);
         }
     }
 }

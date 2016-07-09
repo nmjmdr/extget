@@ -42,11 +42,16 @@
   <ItemGroup>
     <Compile Include="Scheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHttpHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extget.Common\Extget.Common.csproj">
       <Project>{2c3f586a-eada-4624-b8f6-9c96208c7673}</Project>
       <Name>Extget.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extget.Worker\Extget.Worker.csproj">
+      <Project>{D8D729C3-EDB5-42FA-888D-C3BE96851920}</Project>
+      <Name>Extget.Worker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

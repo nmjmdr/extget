@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ErrorCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Result.cs" />
   </ItemGroup>

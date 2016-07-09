@@ -11,12 +11,12 @@ namespace Extget.Common {
         public Result Result { get; set; }
         public Stream OutStream { get; set; }
 
-        public static Response Failure(ErrorCode code, string message) {
-            return new Response { Result = Result.Failure(code, message) };
+        public static Response Failure(string uri,ErrorCode code, string message) {
+            return new Response { Result = Result.Failure(uri,code, message) };
         }
 
-        public static Response Ok(Stream stream) {
-            return new Response { Result = Result.Ok(), OutStream = stream };
+        public static Response Ok(string uri,Stream stream) {
+            return new Response { Result = Result.Ok(uri), OutStream = stream };
         }
     }
 }
