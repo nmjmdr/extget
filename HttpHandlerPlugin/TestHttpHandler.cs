@@ -9,8 +9,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Extget.Workbench {
-    public class TestHttpHandler : IHandler {
+namespace HttpHandlerPlugin {
+    public class HttpHandler : IHandler {
+        public string Scheme {
+            get {
+                return "http";
+            }
+        }
+
         public async Task<Response> GetAsync(Request request) {
 
             HttpClient client = new HttpClient();

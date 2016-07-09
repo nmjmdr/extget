@@ -10,9 +10,17 @@ namespace Extget.HandlerRepo
 {
     public class HandlerRepository
     {
+        // static ensures single instance, no need for a lock
         private static HandlerRepository instance = new HandlerRepository();
+
         private Dictionary<string, IHandler> repo;
         private ReaderWriterLockSlim rwLock = new ReaderWriterLockSlim();
+
+        public static HandlerRepository Instance {
+            get {
+                return instance;
+            }
+        }
 
         private HandlerRepository() {
             repo = new Dictionary<string, IHandler>();

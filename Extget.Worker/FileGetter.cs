@@ -10,23 +10,25 @@ namespace Extget.Worker {
     public class FileGetter {
 
         private IHandler handler;
+        private string outputDir;
 
-        public FileGetter(IHandler handler) {
+        public FileGetter(IHandler handler,string outputDir) {
             this.handler = handler;
+            this.outputDir = outputDir;
         }
 
         public async Task<Result> GetAsync(Request request) {
 
             // Need a way to cancel the download!!!!
             FileStream fs = null;
-            string filename = request.Uri.DeriveFileName();
+            string filepath = Path.Combine(outputDir,request.Uri.DeriveFileName());
             try {
                 Response response = await handler.GetAsync(request);
 
-                if (!response.Result.Success) {
+                if (!response.Result.IsSuccess) {
                     return response.Result;
                 }
-                fs = File.Open(filename, FileMode.Create);
+                fs = File.Open(filepath, FileMode.Create);
                 await response.OutStream.CopyToAsync(fs);
                 await fs.FlushAsync();
                 fs.Close();
@@ -35,7 +37,7 @@ namespace Extget.Worker {
                 if(fs != null) {
                     // delete the file
                     fs.Close();
-                    File.Delete(filename);
+                    File.Delete(filepath);
                 }
                 return Result.Failure(request.Uri.AbsoluteUri,ErrorCode.FailedToGet,string.Format("An exception occured during the download: {0}",exp.Message));
             } 

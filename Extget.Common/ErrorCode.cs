@@ -1,6 +1,7 @@
 ﻿namespace Extget.Common {
     public enum ErrorCode {
         FailedToGet,
-        FileNotFound
+        FileNotFound,
+        HandlerNotFound
     }
 }

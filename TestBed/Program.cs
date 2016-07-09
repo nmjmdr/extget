@@ -31,19 +31,22 @@ namespace TestBed {
 
             //t.Wait();
 
-            Scheduler scheduler = new Scheduler(3,resultCallback);
+            Scheduler scheduler = new Scheduler(3, eventHandler, "C:\\test\\");
 
             scheduler.Start();
 
             for (int i = 0; i < 1; i++) {
-                scheduler.Enqueue(new Request(new Uri(@"http://localhost/File/t1.txt")));              
+                scheduler.Enqueue(new Request(new Uri(@"http://localhost/File/t1.txt")));
             }
 
             Console.ReadLine();
         }
 
-        private static void resultCallback(Result result) {
-            Console.WriteLine("{0} {1} {2}", result.Uri, result.Success, result.Message);
+        private static void eventHandler(SchedulerEvent evt) {
+            Console.WriteLine(evt.Type.ToString());
+            if (evt.Result != null) {
+                Console.WriteLine("{0} {1} {2}", evt.Result.Uri, evt.Result.IsSuccess, evt.Result.Message);
+            }
         }
     }
 }

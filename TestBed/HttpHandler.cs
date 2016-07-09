@@ -8,6 +8,12 @@ using Extget.Common;
 
 namespace TestBed {
     public class HttpHandler : IHandler {
+        public string Scheme {
+            get {
+                return "http";
+            }
+        }
+
         public async Task<Response> GetAsync(Request request) {
 
             HttpClient client = new HttpClient();
