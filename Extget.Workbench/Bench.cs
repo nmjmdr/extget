@@ -62,7 +62,9 @@ namespace Extget.Workbench {
                     // could not load handler from this assembly, ignore
                     continue;
                 }
-                HandlerRepository.Instance.SetHandler(handler.Scheme, handler);
+                foreach (string scheme in handler.Schemes) {
+                    HandlerRepository.Instance.SetHandler(scheme, handler);
+                }
             }
         }
     }

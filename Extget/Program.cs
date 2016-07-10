@@ -116,6 +116,9 @@ namespace Extget {
             while (!reader.EndOfStream) {
                 string line = reader.ReadLine();
                 line.Trim();
+                if(string.IsNullOrWhiteSpace(line)) {
+                    continue;
+                }
                 try {
                     Uri uri = new Uri(line);
                     urls.Add(uri);

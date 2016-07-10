@@ -29,7 +29,7 @@ namespace Extget {
 
             startstate = (s) => {
                 if(isOption(s)) {
-                    args.Add(new Arg { Option = s });
+                    args.Add(new Arg { OptionText = s });
                     if (noValueOptions.Contains(s)) {
                         args[args.Count - 1].IsNoValueOption = true;
                         return valuestate;
@@ -58,7 +58,7 @@ namespace Extget {
 
             valuestate = (s) => {
                 if (isOption(s)) {
-                    args.Add(new Arg { Option = s });
+                    args.Add(new Arg { OptionText = s });
                     if (noValueOptions.Contains(s)) {
                         args[args.Count - 1].IsNoValueOption = true;
                         return valuestate;

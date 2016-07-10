@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extget.Worker", "Extget.Worker\Extget.Worker.csproj", "{D8D729C3-EDB5-42FA-888D-C3BE96851920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBed", "TestBed\TestBed.csproj", "{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extget.Workbench", "Extget.Workbench\Extget.Workbench.csproj", "{4AD76403-043F-4836-B0C8-B9B2F0269521}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extget.Common", "Extget.Common\Extget.Common.csproj", "{2C3F586A-EADA-4624-B8F6-9C96208C7673}"
@@ -16,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extget", "Extget\Extget.csproj", "{672FA814-5741-4219-89DB-A03EC8B67D41}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpHandlerPlugin", "HttpHandlerPlugin\HttpHandlerPlugin.csproj", "{AC398207-8108-47C4-BDFB-D2178DE38AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHandlerPlugin", "FileHandlerPlugin\FileHandlerPlugin.csproj", "{801A6F79-C687-4CAC-9E16-8F488774373A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Handlers", "Handlers", "{18356C09-95E3-4526-90CD-ADCA5513A024}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +29,6 @@ Global
 		{D8D729C3-EDB5-42FA-888D-C3BE96851920}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8D729C3-EDB5-42FA-888D-C3BE96851920}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8D729C3-EDB5-42FA-888D-C3BE96851920}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AD76403-043F-4836-B0C8-B9B2F0269521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4AD76403-043F-4836-B0C8-B9B2F0269521}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AD76403-043F-4836-B0C8-B9B2F0269521}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,8 +49,16 @@ Global
 		{AC398207-8108-47C4-BDFB-D2178DE38AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC398207-8108-47C4-BDFB-D2178DE38AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC398207-8108-47C4-BDFB-D2178DE38AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801A6F79-C687-4CAC-9E16-8F488774373A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801A6F79-C687-4CAC-9E16-8F488774373A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801A6F79-C687-4CAC-9E16-8F488774373A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801A6F79-C687-4CAC-9E16-8F488774373A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC398207-8108-47C4-BDFB-D2178DE38AAB} = {18356C09-95E3-4526-90CD-ADCA5513A024}
+		{801A6F79-C687-4CAC-9E16-8F488774373A} = {18356C09-95E3-4526-90CD-ADCA5513A024}
 	EndGlobalSection
 EndGlobal

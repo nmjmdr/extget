@@ -8,7 +8,7 @@ using Extget.Common;
 namespace Extget.Worker
 {
     public interface IHandler {
-        string Scheme { get; }
+        string[] Schemes { get; }
         Task<Response> GetAsync(Request uri);
     }
 }

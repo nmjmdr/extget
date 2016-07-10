@@ -15,6 +15,9 @@ copy .\Extget\bin\Release\*.config .\Output\
 
 
 copy .\HttpHandlerPlugin\bin\Release\*.dll .\Output\plugins
+copy .\FileHandlerPlugin\bin\Release\*.dll .\Output\plugins
+
+copy .\Ouput .\System_Test
 
 echo "Done"
 

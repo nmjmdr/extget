@@ -40,7 +40,7 @@ namespace Extget.Workbench {
 
             IHandler handlerInstance = null;
             try {
-                handlerInstance = (Extget.Worker.IHandler)Activator.CreateInstance(handlerType);
+                handlerInstance = (IHandler)Activator.CreateInstance(handlerType);
             } catch(Exception) {
                 return null;
             }

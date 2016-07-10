@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B2FC508A-3D51-47F9-9BB0-4F27F14B3C68}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{801A6F79-C687-4CAC-9E16-8F488774373A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestBed</RootNamespace>
-    <AssemblyName>TestBed</AssemblyName>
+    <RootNamespace>FileHandlerPlugin</RootNamespace>
+    <AssemblyName>FileHandlerPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,24 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpHandler.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="FileHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extget.Common\Extget.Common.csproj">
       <Project>{2c3f586a-eada-4624-b8f6-9c96208c7673}</Project>
       <Name>Extget.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Extget.Workbench\Extget.Workbench.csproj">
-      <Project>{4ad76403-043f-4836-b0c8-b9b2f0269521}</Project>
-      <Name>Extget.Workbench</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Extget.Worker\Extget.Worker.csproj">
-      <Project>{d8d729c3-edb5-42fa-888d-c3be96851920}</Project>
+      <Project>{D8D729C3-EDB5-42FA-888D-C3BE96851920}</Project>
       <Name>Extget.Worker</Name>
     </ProjectReference>
   </ItemGroup>

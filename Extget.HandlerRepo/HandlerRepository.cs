@@ -29,8 +29,8 @@ namespace Extget.HandlerRepo
         public void SetHandler(string protocol,IHandler handler) {
             try {
                 rwLock.EnterWriteLock();
-                if (!repo.ContainsKey(protocol)) {
-                    repo.Add(protocol, handler);
+                if (!repo.ContainsKey(protocol.ToLower())) {
+                    repo.Add(protocol.ToLower(), handler);
                     return;
                 }
                 repo[protocol] = handler;
@@ -42,7 +42,7 @@ namespace Extget.HandlerRepo
         public IHandler Get(string protocol) {
             try {
                 rwLock.EnterReadLock();
-                if (!repo.ContainsKey(protocol)) {
+                if (!repo.ContainsKey(protocol.ToLower())) {
                     return null;
                 }
                 return repo[protocol];

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TestBed")]
+[assembly: AssemblyTitle("FileHandlerPlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TestBed")]
+[assembly: AssemblyProduct("FileHandlerPlugin")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b2fc508a-3d51-47f9-9bb0-4f27f14b3c68")]
+[assembly: Guid("801a6f79-c687-4cac-9e16-8f488774373a")]
 
 // Version information for an assembly consists of the following four values:
 //

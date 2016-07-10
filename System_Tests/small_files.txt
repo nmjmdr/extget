@@ -1,0 +1,4 @@
+http://www.gutenberg.org/cache/epub/2852/pg2852.txt
+http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-gb-all-4gram-20120701-ez.gz
+http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-gb-all-2gram-20120701-yk.gz
+http://kdd.ics.uci.edu/databases/reuters21578/README.txt

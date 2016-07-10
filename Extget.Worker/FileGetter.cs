@@ -28,10 +28,16 @@ namespace Extget.Worker {
                 if (!response.Result.IsSuccess) {
                     return response.Result;
                 }
+                
+                if(File.Exists(filepath)) {
+                    return Result.Failure(request.Uri.AbsoluteUri, ErrorCode.FailedToGet, string.Format("Target file {0} already exists, not dowloanding",filepath));
+                }
+
                 fs = File.Open(filepath, FileMode.Create);
                 await response.OutStream.CopyToAsync(fs);
                 await fs.FlushAsync();
                 fs.Close();
+                response.OutStream.Close();
 
             } catch(Exception exp) {
                 if(fs != null) {
@@ -43,5 +49,7 @@ namespace Extget.Worker {
             } 
             return Result.Ok(request.Uri.AbsoluteUri);
         }
+
+        
     }
 }

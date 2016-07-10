@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace HttpHandlerPlugin {
     public class HttpHandler : IHandler {
-        public string Scheme {
+        public string[] Schemes {
             get {
-                return "http";
+                return new string[] { "http", "https" };
             }
         }
 

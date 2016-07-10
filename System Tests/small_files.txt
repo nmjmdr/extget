@@ -1,0 +1,8 @@
+file://sample/1.txt
+https://wordpress.org/plugins/about/readme.txt
+file://sample/2.txt
+file://sample/3.txt
+file://sample/4.txt
+file://sample/The_hound_of_Baskervilles.txt
+
+

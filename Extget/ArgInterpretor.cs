@@ -24,20 +24,36 @@ namespace Extget {
             Dictionary<OptionType, Option> optionsMap = new Dictionary<OptionType, Option>();
 
             foreach(Arg a in args) {
-                if(a.Option.ToLower() == InputFileOptionString) {
-                    optionsMap.Add(OptionType.InputFile, new Option { Type = OptionType.InputFile, Value = a.Value });
-                } else if(a.Option.ToLower() == OutputDirOptionString) {
-                    optionsMap.Add(OptionType.OutputDir, new Option { Type = OptionType.InputFile, Value = a.Value });
-                } else if(a.Option.ToLower() == HelpOptionString) {
-                    optionsMap.Add(OptionType.Help, new Option { Type = OptionType.Help });
-                } else if (a.Option.ToLower() == ConcurrencyString) {
-                    optionsMap.Add(OptionType.DegreeOfConcurrency, new Option { Type = OptionType.DegreeOfConcurrency, Value = a.Value });
+
+                Option optionToAdd = getOption(a);
+                if(optionToAdd == null) {
+                    errMessage = string.Format("Unknown argument {0} passed to extget. -h prints help", a.OptionText);
+                    return null;
+                }
+
+                if (!optionsMap.ContainsKey(optionToAdd.Type)) {
+                    optionsMap.Add(optionToAdd.Type, optionToAdd);
                 } else {
-                    errMessage = string.Format("Unknown argument {0} passed to extget. -h prints help",a.Option);
+                    errMessage = string.Format("Options repeated, check the arguments. -h prints help", a.OptionText);
                     return null;
                 }
             }
             return optionsMap;
+        }
+
+        private static Option getOption(Arg a) {
+
+            if (a.OptionText.ToLower() == InputFileOptionString) {                
+                    return new Option { Type = OptionType.InputFile, Value = a.Value };             
+            } else if (a.OptionText.ToLower() == OutputDirOptionString) {
+                return new Option { Type = OptionType.OutputDir, Value = a.Value };
+            } else if (a.OptionText.ToLower() == HelpOptionString) {
+                return new Option { Type = OptionType.Help };
+            } else if (a.OptionText.ToLower() == ConcurrencyString) {
+                return new Option { Type = OptionType.DegreeOfConcurrency, Value = a.Value };
+            } else {                
+                return null;
+            }
         }
     }
 }
