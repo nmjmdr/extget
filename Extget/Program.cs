@@ -200,7 +200,7 @@ namespace Extget {
         }
 
         private static void printHelp() {
-            Console.WriteLine("Help:");
+            Console.WriteLine(Resource.Help_String);
         }
     }
 }
