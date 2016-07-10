@@ -7,6 +7,7 @@ Extget currently supports **HTTP, HTTPS, and FILE** schemes.
 Extget uses asynchronous programming (async, await) to download save files concurrently. 
 
 ### Usage
+```sh
 Extget -i <input file> -o <output directory> [-c <number of files to download concurrently>]
 
 - i and -o options are mandatory
@@ -19,7 +20,7 @@ Extget -i <input file> -o <output directory> [-c <number of files to download co
 Bu default Extget supports Http, Https and File URIs. Support for more protocols can be added by adding plugins to the plugins folder. 
 Example:
 Extget -i input_file.txt -o output_dir -c 25
-
+```
 ### Version
 0.0.1
 
